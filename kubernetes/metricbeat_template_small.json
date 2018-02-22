@@ -1,0 +1,1379 @@
+{
+  "index_patterns": [
+    "metricbeat-6.2.2-*"
+  ],
+  "mappings": {
+    "doc": {
+      "_meta": {
+        "version": "6.2.2"
+      },
+      "date_detection": false,
+      "dynamic_templates": [
+        {
+          "fields": {
+            "mapping": {
+              "type": "keyword"
+            },
+            "match_mapping_type": "string",
+            "path_match": "fields.*"
+          }
+        },
+        {
+          "docker.container.labels": {
+            "mapping": {
+              "type": "keyword"
+            },
+            "match_mapping_type": "string",
+            "path_match": "docker.container.labels.*"
+          }
+        },
+        {
+          "docker.image.labels": {
+            "mapping": {
+              "type": "keyword"
+            },
+            "match_mapping_type": "string",
+            "path_match": "docker.image.labels.*"
+          }
+        },
+        {
+          "system.process.env": {
+            "mapping": {
+              "type": "keyword"
+            },
+            "match_mapping_type": "string",
+            "path_match": "system.process.env.*"
+          }
+        },
+        {
+          "system.process.cgroup.cpuacct.percpu": {
+            "mapping": {
+              "type": "long"
+            },
+            "match_mapping_type": "long",
+            "path_match": "system.process.cgroup.cpuacct.percpu.*"
+          }
+        },
+        {
+          "vsphere.virtualmachine.custom_fields": {
+            "mapping": {
+              "type": "keyword"
+            },
+            "match_mapping_type": "string",
+            "path_match": "vsphere.virtualmachine.custom_fields.*"
+          }
+        },
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string"
+          }
+        },
+        {
+          "integers_as_longs": {
+            "mapping": {
+              "type": "long"
+            },
+            "match_mapping_type": "long"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "aerospike": {
+          "properties": {
+            "namespace": {
+              "properties": {
+                "device": {
+                  "properties": {
+                    "available": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "free": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "hwm_breached": {
+                  "type": "boolean"
+                },
+                "memory": {
+                  "properties": {
+                    "free": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "stop_writes": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "apache": {
+          "properties": {
+            "status": {
+              "properties": {
+                "bytes_per_request": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                },
+                "bytes_per_sec": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                },
+                "cpu": {
+                  "properties": {
+                    "children_system": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    },
+                    "children_user": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    },
+                    "load": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    },
+                    "system": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    },
+                    "user": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "load": {
+                  "properties": {
+                    "1": {
+                      "scaling_factor": 100,
+                      "type": "scaled_float"
+                    },
+                    "15": {
+                      "scaling_factor": 100,
+                      "type": "scaled_float"
+                    },
+                    "5": {
+                      "scaling_factor": 100,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "requests_per_sec": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                }
+              }
+            }
+          }
+        },
+        "ceph": {
+          "properties": {
+            "cluster_status": {
+              "properties": {
+                "degraded": {
+                  "properties": {
+                    "ratio": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "misplace": {
+                  "properties": {
+                    "ratio": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "osd": {
+                  "properties": {
+                    "full": {
+                      "type": "boolean"
+                    },
+                    "nearfull": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "monitor_health": {
+              "properties": {
+                "last_updated": {
+                  "type": "date"
+                }
+              }
+            },
+            "osd_df": {
+              "properties": {
+                "name": {
+                  "norms": false,
+                  "type": "text"
+                },
+                "used": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "osd_tree": {
+              "properties": {
+                "children": {
+                  "norms": false,
+                  "type": "text"
+                },
+                "crush_weight": {
+                  "type": "float"
+                },
+                "exists": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "norms": false,
+                  "type": "text"
+                },
+                "primary_affinity": {
+                  "type": "float"
+                }
+              }
+            }
+          }
+        },
+        "couchbase": {
+          "properties": {
+            "bucket": {
+              "properties": {
+                "quota": {
+                  "properties": {
+                    "use": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "node": {
+              "properties": {
+                "cpu_utilization_rate": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "docker": {
+          "properties": {
+            "container": {
+              "properties": {
+                "created": {
+                  "type": "date"
+                },
+                "labels": {
+                  "type": "object"
+                }
+              }
+            },
+            "cpu": {
+              "properties": {
+                "kernel": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "system": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "total": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "user": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "diskio": {
+              "properties": {
+                "reads": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                },
+                "total": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                },
+                "writes": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                }
+              }
+            },
+            "healthcheck": {
+              "properties": {
+                "event": {
+                  "properties": {
+                    "end_date": {
+                      "type": "date"
+                    },
+                    "start_date": {
+                      "type": "date"
+                    }
+                  }
+                }
+              }
+            },
+            "image": {
+              "properties": {
+                "created": {
+                  "type": "date"
+                },
+                "labels": {
+                  "type": "object"
+                }
+              }
+            },
+            "memory": {
+              "properties": {
+                "fail": {
+                  "properties": {
+                    "count": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "rss": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "usage": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "network": {
+              "properties": {
+                "in": {
+                  "properties": {
+                    "dropped": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "out": {
+                  "properties": {
+                    "dropped": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "elasticsearch": {
+          "properties": {
+            "node": {
+              "properties": {
+                "process": {
+                  "properties": {
+                    "mlockall": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "error": {
+          "properties": {
+            "message": {
+              "norms": false,
+              "type": "text"
+            }
+          }
+        },
+        "etcd": {
+          "properties": {
+            "leader": {
+              "properties": {
+                "followers": {
+                  "properties": {
+                    "latency": {
+                      "properties": {
+                        "follower": {
+                          "properties": {
+                            "latency": {
+                              "properties": {
+                                "standardDeviation": {
+                                  "scaling_factor": 1000,
+                                  "type": "scaled_float"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "followers": {
+                          "properties": {
+                            "latency": {
+                              "properties": {
+                                "average": {
+                                  "scaling_factor": 1000,
+                                  "type": "scaled_float"
+                                },
+                                "current": {
+                                  "scaling_factor": 1000,
+                                  "type": "scaled_float"
+                                },
+                                "maximum": {
+                                  "scaling_factor": 1000,
+                                  "type": "scaled_float"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "self": {
+              "properties": {
+                "recv": {
+                  "properties": {
+                    "bandwithrate": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    },
+                    "pkgrate": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "send": {
+                  "properties": {
+                    "bandwithrate": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    },
+                    "pkgrate": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fields": {
+          "type": "object"
+        },
+        "haproxy": {
+          "properties": {
+            "info": {
+              "properties": {
+                "idle": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "ssl": {
+                  "properties": {
+                    "frontend": {
+                      "properties": {
+                        "session_reuse": {
+                          "properties": {
+                            "pct": {
+                              "scaling_factor": 1000,
+                              "type": "scaled_float"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "stat": {
+              "properties": {
+                "throttle": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "http": {
+          "properties": {
+            "request": {
+              "properties": {
+                "header": {
+                  "type": "object"
+                }
+              }
+            },
+            "response": {
+              "properties": {
+                "header": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "kafka": {
+          "properties": {
+            "consumergroup": {
+              "properties": {
+                "meta": {
+                  "norms": false,
+                  "type": "text"
+                }
+              }
+            },
+            "partition": {
+              "properties": {
+                "partition": {
+                  "properties": {
+                    "insync_replica": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "kubernetes": {
+          "properties": {
+            "annotations": {
+              "type": "object"
+            },
+            "container": {
+              "properties": {
+                "start_time": {
+                  "type": "date"
+                },
+                "status": {
+                  "properties": {
+                    "ready": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "deployment": {
+              "properties": {
+                "paused": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "event": {
+              "properties": {
+                "metadata": {
+                  "properties": {
+                    "timestamp": {
+                      "properties": {
+                        "created": {
+                          "type": "date"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "labels": {
+              "type": "object"
+            },
+            "node": {
+              "properties": {
+                "start_time": {
+                  "type": "date"
+                },
+                "status": {
+                  "properties": {
+                    "unschedulable": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "pod": {
+              "properties": {
+                "host_ip": {
+                  "type": "ip"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "start_time": {
+                  "type": "date"
+                }
+              }
+            },
+            "system": {
+              "properties": {
+                "start_time": {
+                  "type": "date"
+                }
+              }
+            }
+          }
+        },
+        "mongodb": {
+          "properties": {
+            "status": {
+              "properties": {
+                "background_flushing": {
+                  "properties": {
+                    "last_finished": {
+                      "type": "date"
+                    }
+                  }
+                },
+                "local_time": {
+                  "type": "date"
+                },
+                "write_backs_queued": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "php_fpm": {
+          "properties": {
+            "pool": {
+              "properties": {
+                "start_time": {
+                  "type": "date"
+                }
+              }
+            }
+          }
+        },
+        "postgresql": {
+          "properties": {
+            "activity": {
+              "properties": {
+                "backend_start": {
+                  "type": "date"
+                },
+                "query_start": {
+                  "type": "date"
+                },
+                "state_change": {
+                  "type": "date"
+                },
+                "transaction_start": {
+                  "type": "date"
+                },
+                "waiting": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "bgwriter": {
+              "properties": {
+                "checkpoints": {
+                  "properties": {
+                    "times": {
+                      "properties": {
+                        "sync": {
+                          "properties": {
+                            "ms": {
+                              "type": "float"
+                            }
+                          }
+                        },
+                        "write": {
+                          "properties": {
+                            "ms": {
+                              "type": "float"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "stats_reset": {
+                  "type": "date"
+                }
+              }
+            },
+            "database": {
+              "properties": {
+                "stats_reset": {
+                  "type": "date"
+                }
+              }
+            }
+          }
+        },
+        "rabbitmq": {
+          "properties": {
+            "queue": {
+              "properties": {
+                "auto_delete": {
+                  "type": "boolean"
+                },
+                "durable": {
+                  "type": "boolean"
+                },
+                "exclusive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "redis": {
+          "properties": {
+            "info": {
+              "properties": {
+                "cluster": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "cpu": {
+                  "properties": {
+                    "used": {
+                      "properties": {
+                        "sys": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        },
+                        "sys_children": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        },
+                        "user": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        },
+                        "user_children": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "persistence": {
+                  "properties": {
+                    "aof": {
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "rewrite": {
+                          "properties": {
+                            "in_progress": {
+                              "type": "boolean"
+                            },
+                            "scheduled": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "loading": {
+                      "type": "boolean"
+                    },
+                    "rdb": {
+                      "properties": {
+                        "bgsave": {
+                          "properties": {
+                            "in_progress": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "stats": {
+                  "properties": {
+                    "instantaneous": {
+                      "properties": {
+                        "input_kbps": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        },
+                        "output_kbps": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "system": {
+          "properties": {
+            "core": {
+              "properties": {
+                "idle": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "iowait": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "irq": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "nice": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "softirq": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "steal": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "system": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "user": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "cpu": {
+              "properties": {
+                "idle": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "iowait": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "irq": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "nice": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "softirq": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "steal": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "system": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "total": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                },
+                "user": {
+                  "properties": {
+                    "norm": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    },
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "diskio": {
+              "properties": {
+                "iostat": {
+                  "properties": {
+                    "await": {
+                      "type": "float"
+                    },
+                    "busy": {
+                      "type": "float"
+                    },
+                    "queue": {
+                      "properties": {
+                        "avg_size": {
+                          "type": "float"
+                        }
+                      }
+                    },
+                    "read": {
+                      "properties": {
+                        "per_sec": {
+                          "properties": {
+                            "bytes": {
+                              "type": "float"
+                            }
+                          }
+                        },
+                        "request": {
+                          "properties": {
+                            "merges_per_sec": {
+                              "type": "float"
+                            },
+                            "per_sec": {
+                              "type": "float"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "request": {
+                      "properties": {
+                        "avg_size": {
+                          "type": "float"
+                        }
+                      }
+                    },
+                    "service_time": {
+                      "type": "float"
+                    },
+                    "write": {
+                      "properties": {
+                        "per_sec": {
+                          "properties": {
+                            "bytes": {
+                              "type": "float"
+                            }
+                          }
+                        },
+                        "request": {
+                          "properties": {
+                            "merges_per_sec": {
+                              "type": "float"
+                            },
+                            "per_sec": {
+                              "type": "float"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "filesystem": {
+              "properties": {
+                "used": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "load": {
+              "properties": {
+                "1": {
+                  "scaling_factor": 100,
+                  "type": "scaled_float"
+                },
+                "15": {
+                  "scaling_factor": 100,
+                  "type": "scaled_float"
+                },
+                "5": {
+                  "scaling_factor": 100,
+                  "type": "scaled_float"
+                },
+                "norm": {
+                  "properties": {
+                    "1": {
+                      "scaling_factor": 100,
+                      "type": "scaled_float"
+                    },
+                    "15": {
+                      "scaling_factor": 100,
+                      "type": "scaled_float"
+                    },
+                    "5": {
+                      "scaling_factor": 100,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "memory": {
+              "properties": {
+                "actual": {
+                  "properties": {
+                    "used": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "swap": {
+                  "properties": {
+                    "used": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "used": {
+                  "properties": {
+                    "pct": {
+                      "scaling_factor": 1000,
+                      "type": "scaled_float"
+                    }
+                  }
+                }
+              }
+            },
+            "process": {
+              "properties": {
+                "cgroup": {
+                  "properties": {
+                    "cpuacct": {
+                      "properties": {
+                        "percpu": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                },
+                "cpu": {
+                  "properties": {
+                    "start_time": {
+                      "type": "date"
+                    },
+                    "total": {
+                      "properties": {
+                        "norm": {
+                          "properties": {
+                            "pct": {
+                              "scaling_factor": 1000,
+                              "type": "scaled_float"
+                            }
+                          }
+                        },
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "env": {
+                  "type": "object"
+                },
+                "memory": {
+                  "properties": {
+                    "rss": {
+                      "properties": {
+                        "pct": {
+                          "scaling_factor": 1000,
+                          "type": "scaled_float"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "socket": {
+              "properties": {
+                "local": {
+                  "properties": {
+                    "ip": {
+                      "type": "ip"
+                    }
+                  }
+                },
+                "remote": {
+                  "properties": {
+                    "ip": {
+                      "type": "ip"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vsphere": {
+          "properties": {
+            "virtualmachine": {
+              "properties": {
+                "custom_fields": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "order": 1,
+  "settings": {
+    "index": {
+      "codec": "best_compression",
+      "mapping": {
+        "total_fields": {
+          "limit": 10000
+        }
+      },
+      "number_of_routing_shards": 30,
+      "number_of_shards": 1,
+      "refresh_interval": "5s"
+    }
+  }
+}

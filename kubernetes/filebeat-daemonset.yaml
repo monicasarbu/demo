@@ -39,7 +39,7 @@ data:
       - add_docker_metadata:
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+      hosts: ['${ELASTICSEARCH_HOST}']
       username: ${ELASTIC_USERNAME}
       password: ${ELASTIC_PASSWORD}
 
@@ -75,30 +75,13 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTICSEARCH_HOST
+          value: https://infra.simianhacker.com:443/_es/
         - name: ELASTICSEARCH_PORT
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTICSEARCH_PORT
-        - name: KIBANA_HOST
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: KIBANA_HOST
+          value: ""
         - name: ELASTIC_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTIC_USERNAME
+          value: demo
         - name: ELASTIC_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTIC_PASSWORD
+          value: "CaptainAmerica!"
         securityContext:
           runAsUser: 0
         resources:
@@ -132,70 +115,6 @@ spec:
           path: /var/run/docker.sock
       - name: data
         emptyDir: {}
----
-# Run filebeat setup
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: filebeat-setup
-  namespace: kube-system
-spec:
-  activeDeadlineSeconds: 300
-  template:
-    spec:
-      restartPolicy: Never
-      containers:
-      - name: filebeat
-        imagePullPolicy: Always
-        image: docker.elastic.co/beats/filebeat:6.2.0
-        args: [
-          "-c", "/etc/filebeat.yml",
-          "-e",
-          "setup",
-        ]
-        env:
-        - name: ELASTICSEARCH_HOST
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTICSEARCH_HOST
-        - name: ELASTICSEARCH_PORT
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTICSEARCH_PORT
-        - name: KIBANA_HOST
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: KIBANA_HOST
-        - name: ELASTIC_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTIC_USERNAME
-        - name: ELASTIC_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: elastic
-              key: ELASTIC_PASSWORD
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: config
-          mountPath: /etc/filebeat.yml
-          readOnly: true
-          subPath: filebeat.yml
-        - name: dockersock
-          mountPath: /var/run/docker.sock
-      volumes:
-      - name: config
-        configMap:
-          defaultMode: 0600
-          name: filebeat-config
-      - name: dockersock
-        hostPath:
-          path: /var/run/docker.sock
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
