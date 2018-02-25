@@ -1,0 +1,71 @@
+{
+  "objects": [
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"6e929670-053b-11e8-ab1f-452fc3ffbe4c\"}"
+        },
+        "title": "Nginx hosts [Metricbeat Nginx]",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"aggs\":[],\"params\":{\"bounds_max\":1,\"bounds_min\":0,\"bounds_mode\":\"auto\",\"color_rules\":[{\"color\":\"rgba(115,216, 255, 1)\",\"id\":1,\"value\":0},{\"color\":\"rgba(211, 49, 21, 1)\",\"id\":4,\"value\":1}],\"color_steps\":[{\"color\":\"rgba(104,188,0, 1)\",\"id\":1,\"operator\":\"gte\",\"value\":0}],\"custom_format_value\":\"0,0.[00]\",\"display_legend\":1,\"document_match\":{\"field_match\":\"{{field}}:{{key}}\",\"indexPattern\":{\"pattern\":\"*metricbeat*\",\"scriptFields\":{},\"timeFieldName\":\"@timestamp\"},\"no_match_color\":\"rgba(115,216,255,1)\",\"no_match_icon\":\"_blank\",\"no_match_label\":\"All Clear\",\"priority_mode\":\"timestamp\",\"rules\":[{\"collapse\":false,\"color\":\"rgba(211,49,21,1)\",\"icon\":\"fa-exclamation-triangle\",\"id\":\"1469f5b0-0c22-11e8-8049-3de19d506411\",\"label\":\"Alerting\",\"priority\":1,\"query\":\"beat.hostname:(docs00* OR slave-07818124b3371* OR worker-0415894f5074* OR portal03* OR worker-453961)\"}],\"timespan_interval\":\"1m\",\"timespan_mode\":\"all\"},\"drilldown\":\"add_filters\",\"duration_format_decimal_places\":2,\"duration_format_from\":\"ms\",\"duration_format_to\":\"ms\",\"field_formatter\":\"number\",\"format_template\":\"{{value}}\",\"group_by\":[],\"id\":\"1469cea0-0c22-11e8-8049-3de19d506411\",\"interval\":\"auto\",\"legend_mode\":\"gradient\",\"metrics\":[{\"collapse\":false,\"id\":\"4a62f220-0c22-11e8-8049-3de19d506411\",\"type\":\"count\"}],\"node_field\":\"nginx.stubstatus.hostname\",\"timespan_interval\":\"1m\",\"timespan_mode\":\"last\",\"value_mode\":\"search\"},\"title\":\"Nginx hosts [Metricbeat Nginx]\",\"type\":\"wafflemap\"}"
+      },
+      "id": "d66839a0-0c28-11e8-a2fa-d793a229a453",
+      "type": "visualization",
+      "updated_at": "2018-02-23T19:42:17.752Z",
+      "version": 3
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "Dashboards [Filebeat Nginx]",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Dashboards [Filebeat Nginx]\",\"type\":\"markdown\",\"params\":{\"fontSize\":12,\"markdown\":\"[Nginx hosts](#/dashboard/5b7b46b0-18d0-11e8-9f72-851d0b736a2f) | [Nginx metrics overview](#/dashboard/023d2930-f1a5-11e7-a9ef-93c69af7b129) | [Nginx logs overview](#/dashboard/55a9e6e0-a29e-11e7-928f-5dbe6f6f5519) | [Nginx access and error logs](#/dashboard/046212a0-a2a1-11e7-928f-5dbe6f6f5519)\"},\"aggs\":[]}"
+      },
+      "id": "97109780-a2a5-11e7-928f-5dbe6f6f5519",
+      "type": "visualization",
+      "updated_at": "2018-02-23T20:34:52.161Z",
+      "version": 4
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "Choose Nginx host",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Choose Nginx host\",\"type\":\"input_control_vis\",\"params\":{\"controls\":[{\"id\":\"1519417328401\",\"indexPattern\":\"6e929670-053b-11e8-ab1f-452fc3ffbe4c\",\"fieldName\":\"nginx.stubstatus.hostname\",\"parent\":\"\",\"label\":\"Nginx hosts\",\"type\":\"list\",\"options\":{\"type\":\"terms\",\"multiselect\":true,\"size\":5,\"order\":\"desc\"}},{\"id\":\"1519417359798\",\"indexPattern\":\"6e929670-053b-11e8-ab1f-452fc3ffbe4c\",\"fieldName\":\"\",\"parent\":\"\",\"label\":\"\",\"type\":\"list\",\"options\":{\"type\":\"terms\",\"multiselect\":true,\"size\":5,\"order\":\"desc\"}}],\"updateFiltersOnChange\":true,\"useTimeFilter\":true,\"pinFilters\":true},\"aggs\":[]}"
+      },
+      "id": "7d37e310-18d7-11e8-9f72-851d0b736a2f",
+      "type": "visualization",
+      "updated_at": "2018-02-23T20:27:24.413Z",
+      "version": 2
+    },
+    {
+      "attributes": {
+        "description": "Overview dashboard for the Nginx module in Metricbeat",
+        "hits": 0,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+        },
+        "optionsJSON": "{\"darkTheme\":false,\"hidePanelTitles\":false,\"useMargins\":true}",
+        "panelsJSON": "[{\"panelIndex\":\"7\",\"gridData\":{\"x\":0,\"y\":1,\"w\":12,\"h\":5,\"i\":\"7\"},\"id\":\"d66839a0-0c28-11e8-a2fa-d793a229a453\",\"type\":\"visualization\",\"version\":\"7.0.0-alpha1\"},{\"panelIndex\":\"8\",\"gridData\":{\"x\":0,\"y\":0,\"w\":8,\"h\":1,\"i\":\"8\"},\"id\":\"97109780-a2a5-11e7-928f-5dbe6f6f5519\",\"type\":\"visualization\",\"version\":\"7.0.0-alpha1\"},{\"panelIndex\":\"9\",\"gridData\":{\"x\":8,\"y\":0,\"w\":4,\"h\":1,\"i\":\"9\"},\"id\":\"7d37e310-18d7-11e8-9f72-851d0b736a2f\",\"type\":\"visualization\",\"version\":\"7.0.0-alpha1\"}]",
+        "timeRestore": false,
+        "title": "Nginx Overview",
+        "version": 1
+      },
+      "id": "5b7b46b0-18d0-11e8-9f72-851d0b736a2f",
+      "type": "dashboard",
+      "updated_at": "2018-02-23T20:35:17.840Z",
+      "version": 4
+    }
+  ],
+  "version": "7.0.0-alpha1"
+}
